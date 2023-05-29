@@ -48,13 +48,19 @@ const months = [
 router.get("/", function (req, res, next) {
   const apiKey = "31b1715eea27e8546c5192709d456eb7";
   city_info = cities.filter(function (city) {
-    return city.name.includes(req.query.CityName);
+    if(city.name.includes(req.query.CityName).size > 0){
+      return city.name.includes(req.query.CityName);
+    }else{
+      return city.name.includes("Pune");
+    }
   });
 
   // console.log(city_info[0].coord.lon);
-  let lat = city_info[0].coord.lat ? city_info[0].coord.lat : "19.033331";
-  let lon = city_info[0].coord.lon ? city_info[0].coord.lon : "73.316673";
-  let url =
+  console.log(city_info.length);
+  console.log(city_info[0].coord.lat,city_info[0].coord.lat)
+  let lat = city_info[0].coord.lat;
+  let lon = city_info[0].coord.lon;
+  let url = 
     `https://api.openweathermap.org/data/2.5/onecall?lat=` +
     lat +
     `&lon=` +
@@ -72,7 +78,7 @@ router.get("/", function (req, res, next) {
       // console.log("hi");
       // console.log(out.daily);
       //  console.log("hi");
-      data["name"] = city_info[0].name ? city_info[0].name : "Delhi";
+      data["name"] = city_info[0].name;
       data["max"] = Math.round(out.daily[0].temp.max - 273.15);
       data["min"] = Math.round(out.daily[0].temp.min - 273.15);
       data["wind"] = out.current.wind_speed;

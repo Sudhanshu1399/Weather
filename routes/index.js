@@ -44,20 +44,30 @@ const months = [
   "December",
 ];
 
+const toTitleCase = (str)=>{
+  return str.replace(
+    /\w\S*/g,
+    function(txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    }
+  );
+}
+
 /* GET home page. */
 router.get("/", function (req, res, next) {
   const apiKey = "31b1715eea27e8546c5192709d456eb7";
   city_info = cities.filter(function (city) {
-    if(city.name.includes(req.query.CityName).size > 0){
-      return city.name.includes(req.query.CityName);
-    }else{
+    return city.name.includes(toTitleCase(req.query.CityName));
+    });
+  if(city_info.length < 1){
+    city_info = cities.filter(function (city) {
       return city.name.includes("Pune");
-    }
   });
+  }
 
   // console.log(city_info[0].coord.lon);
-  console.log(city_info.length);
-  console.log(city_info[0].coord.lat,city_info[0].coord.lat)
+  // console.log(city_info.length);
+  // console.log(city_info[0].coord.lat,city_info[0].coord.lat)
   let lat = city_info[0].coord.lat;
   let lon = city_info[0].coord.lon;
   let url = 
@@ -168,34 +178,34 @@ router.get("/", function (req, res, next) {
   //---------------------------
 });
 
-router.get('/analysis',async function (req,res,next) {
+router.get('/analysis',function (req,res,next) {
 
-    endpoint_url = "https://egal.p.rapidapi.com/linear/regressionplot";
-    const options = {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        "X-RapidAPI-Key": "f56aa6af8fmsh7b076d06c9eaf28p145fe1jsnc433bd1dd041",
-        "X-RapidAPI-Host": "egal.p.rapidapi.com",
-      },
-      body: {
-        url: "https://drive.google.com/file/d/1eaUpzKjFZPM5GtYwiCckZsieCDXSnBB2/view?usp=share_link",
-      },
-    };
+  const axios = require('axios');
+  async function test(){
+      const options = {
+        method: 'POST',
+        url: 'https://egal.p.rapidapi.com/linear/regressionplot',
+        headers: {
+          'content-type': 'application/json',
+          'X-RapidAPI-Key': '46e65031c1msheef2293fd427ad5p1415a1jsn3142276e757d',
+          'X-RapidAPI-Host': 'egal.p.rapidapi.com'
+        },
+        data: {
+          url: 'https://drive.google.com/u/0/uc?id=1L6RErnw0Xb_R_ZKJ_s6zbcGePmirEg-r&export=download'
+        }
+      };
+      
+      try {
+          const response = await axios.request(options);
+          var b64Response = Buffer.from(response.data).toString('base64');
+          var image_src = 'data:image/png;base64,'+b64Response;
+          res.render("analysis",{image_uri:image_src});
 
-    fetch(endpoint_url, options)
-    .then((response)=>{
-      console.log(response);
-      res.render("analysis",{body:response});
-    })
-
-    // try {
-    //   const response = await fetch(endpoint_url, options);
-    //   const result = await response.text();
-    //   console.log(result);
-    // } catch (error) {
-    //   console.error(error);
-    // } 
+      } catch (error) {
+          console.error(error);
+      }
+  }
+  test();
 
 });
 

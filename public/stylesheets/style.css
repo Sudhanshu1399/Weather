@@ -1,0 +1,214 @@
+
+:root {
+  font-family: 'Times New Roman', sans-serif, rgb(255, 255, 255);
+  --hot: red;
+  --warm: rgb(238, 209, 172,1.5);
+  --cool: rgb(161, 224, 216,1.5);
+  --cold: rgb(176, 191, 238,1.5);
+  --shadow-border :rgb(0, 0, 0);
+  background-color: lightskyblue;
+}
+#myVideo {
+  position:fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+  filter:opacity(100%);
+} 
+@media (min-aspect-ratio:16/9){
+  #myvideo{
+    width: 100%;
+    height: auto;
+  }
+}  
+@media (max-aspect-ratio:16/9){
+  #myvideo{
+    width: auto;
+    height: 100%;
+  }
+}   
+.five-day,
+button,
+#main-card,
+.daily-card{
+  box-shadow: 5px 5px 5px var(--shadow-border);
+  border: 1px;
+  padding: 5px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 20px );
+}
+#container-daily-cards {
+  display: grid;
+  grid-template-columns: 15% 15% 15% 15% 15%;
+  column-gap: 3%;
+  justify-content: center;
+}
+#todays-info {
+  display: grid;
+  grid-template-columns: 25% 25% 25%;
+  grid-template-rows: 45% 45%;
+  justify-content: center;
+  align-items: center;
+}
+#main-card span, #main-card img{
+  padding: 5px;
+
+}
+#todays-day {
+  text-align: center;
+}
+#main-card{
+  margin-bottom: 10px;
+  width: 87%;
+  margin-left: auto;
+  margin-right: auto;
+}
+header {
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
+  height: fit-content;
+}
+.App_Icon{
+  width: 80px;
+}
+.weather-display {
+  display: grid;
+  grid-template-rows: 40% 10% 45%;
+}
+.five-day {
+  text-align: center;
+  width: 87%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5px;
+}
+span {
+  box-shadow: 2px 2px 5px rgba(91, 94, 98, 0.397);
+  border-radius: 10px;
+}
+main{
+  display: grid;
+  grid-template-columns: 20% 70%;
+  justify-content: center;
+}
+#search-container,
+header {
+  display: relative;
+  padding: 5px;
+  border-radius: 25px;
+  margin-bottom: 10px;
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  backdrop-filter: blur( 18px );
+  -webkit-backdrop-filter: blur( 18px );
+  border: 2px solid rgba( 255, 255, 255, 0.18 );
+  border-radius: 2.5rem;
+  padding: 1.5rem;
+  z-index: 10;
+  color: black;
+}
+#search-container input {
+  background:rgb(222, 216, 216) ;
+  border-radius: 15px;
+  backdrop-filter: 1.25px;
+}
+#search-container input:focus-visible {
+  backdrop-filter: blur(10px);
+}
+#search-container{
+  display: grid;
+  grid-template-columns: auto;
+  justify-content: center;
+  align-items: start;
+  backdrop-filter: 1.25px;
+}
+.five-day,
+#todays-day {
+  font-size: 3rem;
+  font-weight: 600;
+}
+.favorable-uv{
+  background-color: rgba(7, 241, 7, 0.541);
+}
+.moderate-uv {
+  background-color: rgba(200, 162, 40, 0.541);
+}
+.severe-uv {
+  background-color: rgba(239, 9, 9, 0.541);
+}
+header {
+  width: 90%;
+  margin: auto;
+  margin-bottom: 20px;
+}
+button:active{
+  color: rgb(243, 10, 10);
+  box-shadow: none;
+}
+#search{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.prev-searched{
+  background-color: rgb(243, 239, 239);
+  margin: 3px;
+  margin-bottom: 5px;
+  display: block;
+  text-align: center;
+}
+.prev-searched:hover {
+  border: 3px solid(black);
+}
+#todays-date{
+  font-size: 1.5rem;
+}
+.weather-img{
+  max-width: 95%;
+}
+.selector-visible {
+  display: block;
+  position: relative;
+  top: 0;
+  left: 0%;
+  right: 0;
+  background-color: rgb(149, 144, 144);
+  border-radius: 10px;
+  border: 5px solid var(--cool);
+  box-shadow: 5px 5px 5px rgb(127, 125, 125);
+  min-width : 80%;
+}
+.selector-visible > * {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+}
+.selector-hidden {
+  display: none;
+}
+aside{
+  display: grid;
+  justify-content: center;
+  row-gap: 2rem;
+}
+#city-name,
+#todays-date {
+  box-shadow: none;
+}
+@media screen and (max-width: 960px){
+main {
+  display: block;
+  justify-content: center;
+  }
+  #search-container{
+      width: 87%;
+      margin: auto auto 1rem auto;
+
+  }
+}

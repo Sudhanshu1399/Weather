@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;1,200;1,300;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+    <title>Weather Forecast</title>
+    <link rel="icon" href="https://cdn.pixabay.com/photo/2012/04/18/13/21/clouds-37009__340.png">
+</head>
+
+<body style="color: ghostwhite;">
+    <div>
+        <video autoplay muted loop id="myVideo">
+            <source
+                src='https://cdn.pixabay.com/vimeo/280036002/Sunset%20-%2017243.mp4?width=640&hash=5ea42e778410d8882f6fe9e4b879f55d1c59ba20'
+                type="video/mp4">
+        </video>
+    </div>
+    <header>
+        <p style="color: blanchedalmond;">Weather Forecast</p>
+        <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3222/3222801.png">
+    </header>
+
+    <main>
+        <section id="search-container">
+            <aside>
+                <div id="selector" class="selector-hidden"></div>
+                <form id="search" action="/">
+                    <input type="text" name="CityName" placeholder="City Name" list="data-list">
+                    <datalist id="data-list">
+                        
+                    </datalist>
+                    <button type="submit" id="search-btn">Search</button>
+                </form>
+                <button id="clear-history">Clear search history</button>
+            </aside>
+            <div id="Recent-Searches">
+
+            </div>
+        </section>
+        <section id="weather-display">
+            <div id="main-card">
+                <div id="todays-day"><span id="city-name">{{ data.name }}</span> - <span id="todays-date">{{ data.date.[0] }}</span></div>
+                <hr>
+                <div id="todays-info">
+                    <div><img src="{{data.icon.[0]}}" id="today-img"></div>
+                    <span id="today-max">Max: {{data.max}}° C</span>
+                    <span id="today-min">Min: {{data.min}}° C</span>
+                    <span id="today-wind">Wind: {{data.wind}}mph</span>
+                    <span id="today-humidity">Humidity: {{data.humidity}}%</span>
+                    <span id="today-uv" class="severe-uv">UV: {{data.uv}}</span>
+                </div>
+            </div>
+            <div class="five-day">
+                5 day forecast
+            </div>
+            <div id="container-daily-cards">
+                <div class="daily-card" data-fiveday="0">
+                    <p class="day">{{data.day.[0]}}</p>
+                    <hr>
+                    <img src="{{data.icon.[0]}}" class="weather-img">
+                    <p class="max">Max: {{data.max}}° C</p>
+                    <p class="min">Min: {{data.min}}° C</p>
+                    <p class="wind">Wind: {{data.wind}}mph</p>
+                    <p class="humidity">Humidity: {{data.humidity}}%</p>
+                </div>
+                <div class="daily-card" data-fiveday="1">
+                    <p class="day">{{data.day.[1]}}</p>
+                    <hr>
+                    <img src="{{data.icon.[1]}}" class="weather-img">
+                    <p class="max">Max: {{data.max}}° C</p>
+                    <p class="min">Min: {{data.min}}° C</p>
+                    <p class="wind">Wind: {{data.wind}}mph</p>
+                    <p class="humidity">Humidity: {{data.humidity}}%</p>
+                </div>
+                <div class="daily-card" data-fiveday="2">
+                    <p class="day">{{data.day.[2]}}</p>
+                    <hr>
+                    <img src="{{data.icon.[2]}}" class="weather-img">
+                    <p class="max">Max: {{data.max}}° C</p>
+                    <p class="min">Min: {{data.min}}° C</p>
+                    <p class="wind">Wind: {{data.wind}}mph</p>
+                    <p class="humidity">Humidity: {{data.humidity}}%</p>
+                </div>
+                <div class="daily-card" data-fiveday="3">
+                    <p class="day">{{data.day.[3]}}</p>
+                    <hr>
+                    <img src="{{data.icon.[3]}}" class="weather-img">
+                    <p class="max">Max: {{data.max}}° C</p>
+                    <p class="min">Min: {{data.min}}° C</p>
+                    <p class="wind">Wind: {{data.wind}}mph</p>
+                    <p class="humidity">Humidity: {{data.humidity}}%</p>
+                </div>
+                <div class="daily-card" data-fiveday="4">
+                    <p class="day">{{data.day.[4]}}</p>
+                    <hr>
+                    <img src="{{data.icon.[4]}}" class="weather-img">
+                    <p class="max">Max: {{data.max}}° C</p>
+                    <p class="min">Min: {{data.min}}° C</p>
+                    <p class="wind">Wind: {{data.wind}}mph</p>
+                    <p class="humidity">Humidity: {{data.humidity}}%</p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script type="text/javascript" src="javascripts/cities.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    {{!--
+    <script src="script.js" type="module"></script> --}}
+    <script type="text/javascript">
+        cities.forEach((city) => {
+            option = document.createElement('option');
+            option.setAttribute("value",city.name);
+            document.querySelector('#data-list').appendChild(option);
+        }
+        )
+    </script>
+</body>
+
+</html>

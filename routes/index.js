@@ -57,7 +57,7 @@ const toTitleCase = (str)=>{
 router.get("/", function (req, res, next) {
   const apiKey = "31b1715eea27e8546c5192709d456eb7";
   city_info = cities.filter(function (city) {
-    return city.name.includes(toTitleCase(req.query.CityName));
+    return city.name.includes(req.query.CityName);
     });
   if(city_info.length < 1){
     city_info = cities.filter(function (city) {
@@ -199,7 +199,7 @@ router.get('/analysis',function (req,res,next) {
           const response = await axios.request(options);
           var b64Response = Buffer.from(response.data).toString('base64');
           var image_src = 'data:image/png;base64,'+b64Response;
-          res.render("analysis",{image_uri:image_src});
+          res.render("analysis",{image_uri:b64Response});
 
       } catch (error) {
           console.error(error);

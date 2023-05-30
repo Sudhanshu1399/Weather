@@ -198,6 +198,7 @@ router.get('/analysis',function (req,res,next) {
       base64 = new Buffer.from(response.data).toString('base64');
       url = "data:image/png;base64,"+base64;
       urlList.push(url);
+      res.render("analysis",{chart_url:url})
     } catch (error) {
       console.error(error);
     }

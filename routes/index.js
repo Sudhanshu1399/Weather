@@ -2,9 +2,7 @@ var express = require("express");
 var router = express.Router();
 const cities = require("../public/javascripts/cities.js");
 const modalWeather = require("../public/javascripts/mongodb");
-//const dailyData = require('../public/javascripts/mongodb');
 const intToDay = (dayAsInt) => {
-  let day = "Weather";
   switch (dayAsInt) {
     case 0:
       day = "Sunday";
@@ -65,9 +63,6 @@ router.get("/", function (req, res, next) {
   });
   }
 
-  // console.log(city_info[0].coord.lon);
-  // console.log(city_info.length);
-  // console.log(city_info[0].coord.lat,city_info[0].coord.lat)
   let lat = city_info[0].coord.lat;
   let lon = city_info[0].coord.lon;
   let url = 
@@ -179,33 +174,37 @@ router.get("/", function (req, res, next) {
 });
 
 router.get('/analysis',function (req,res,next) {
+  axios = require('axios')
+  const options = {
+    method: 'POST',
+    url: 'https://egal.p.rapidapi.com/linear/regressionplot',
+    headers: {
+      'content-type': 'application/json',
+      'X-RapidAPI-Key': '46e65031c1msheef2293fd427ad5p1415a1jsn3142276e757d',
+      'X-RapidAPI-Host': 'egal.p.rapidapi.com'
+    },
+    data: {
+      url: 'https://drive.google.com/u/0/uc?id=1L6RErnw0Xb_R_ZKJ_s6zbcGePmirEg-r&export=download'
+    },
+    responseType: 'arraybuffer'
+  };
 
-  const axios = require('axios');
-  async function test(){
-      const options = {
-        method: 'POST',
-        url: 'https://egal.p.rapidapi.com/linear/regressionplot',
-        headers: {
-          'content-type': 'application/json',
-          'X-RapidAPI-Key': '46e65031c1msheef2293fd427ad5p1415a1jsn3142276e757d',
-          'X-RapidAPI-Host': 'egal.p.rapidapi.com'
-        },
-        data: {
-          url: 'https://drive.google.com/u/0/uc?id=1L6RErnw0Xb_R_ZKJ_s6zbcGePmirEg-r&export=download'
-        }
-      };
-      
-      try {
-          const response = await axios.request(options);
-          var b64Response = Buffer.from(response.data).toString('base64');
-          var image_src = 'data:image/png;base64,'+b64Response;
-          res.render("analysis",{image_uri:b64Response});
+  urlList=[];
 
-      } catch (error) {
-          console.error(error);
-      }
+  async function test() {
+    try {
+      const response = await axios.request(options);
+      // console.log(response.data);
+      base64 = new Buffer.from(response.data).toString('base64');
+      url = "data:image/png;base64,"+base64;
+      urlList.push(url);
+    } catch (error) {
+      console.error(error);
+    }
   }
   test();
+  options.url="https://egal.p.rapidapi.com/linear/plot";
+
 
 });
 
